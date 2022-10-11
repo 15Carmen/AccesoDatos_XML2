@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<coches>
+    <coche>
+        <marca>Seat</marca>
+        <modelo>Ibiza</modelo>
+        <color>Blanco</color>
+        <matriculación>2552</matriculación>
+    </coche>
+</coches>
