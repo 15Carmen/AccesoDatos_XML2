@@ -1,43 +1,43 @@
 package xml2;
 
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
+import org.w3c.dom.*;
+import org.xml.sax.SAXException;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
+import java.io.IOException;
 
 public class LecturaDOM {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SAXException, IOException, ParserConfigurationException {
 
-       try {
-           File file = new File("C:\\Users\\cmartin\\eclipse-workspace\\AccesoDatos_XML2\\src\\compras.xml");
+        try {
+            File file = new File("src/xml2/compras.xml");
 
-           DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-           DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-           Document doc = dBuilder.parse(file);
+            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+            DocumentBuilder db = dbf.newDocumentBuilder();
+            Document doc = db.parse(file);
 
-           // estos métodos podemos usarlos combinados para normalizar el archivo XML
-           doc.getDocumentElement().normalize();
+            // estos métodos podemos usarlos combinados para normalizar el archivo XML
+            doc.getDocumentElement().normalize();
+            System.out.println(doc.getDocumentElement().getNodeName());
 
-           System.out.println("Root Element :" + doc.getDocumentElement().getNodeName());
-           NodeList nList = doc.getElementsByTagName("compra");
-           System.out.println("----------------------------");
+            NodeList comprasLista = doc.getElementsByTagName("compra");
+            System.out.println("----------------------------");
 
-           for (int temp = 0; temp < nList.getLength(); temp++) {
-               Node nNode = nList.item(temp);
-               System.out.println("\nCurrent Element :" + nNode.getNodeName());
-               if (nNode.getNodeType() == Node.ELEMENT_NODE) {
-                   Element eElement = (Element) nNode;
-                   System.out.println("Fecha: " +  eElement.getElementsByTagName("fecha").item(0).getTextContent());
-                   System.out.println("Ticket: " + eElement.getElementsByTagName("ticket").item(0).getTextContent());
-               }
-           }
+            for (int i = 0; i < comprasLista.getLength(); i++) {
 
-       }catch (Exception e){
+                Node compra = comprasLista.item(i);
+                System.out.println("Compra "+ i+1);
+                NodeList datosCompra=compra.getChildNodes();
 
-       }
+
+            }
+
+        } catch (ParserConfigurationException | SAXException | IOException | DOMException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 }
