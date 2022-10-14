@@ -14,6 +14,7 @@ public class Lectura {
     public static void main(String[] args) {
         try {
 
+            int contadorProductos = 0;
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
             DocumentBuilder db = dbf.newDocumentBuilder();
             Document doc = db.parse("src/xml2/compras.xml");
@@ -38,6 +39,7 @@ public class Lectura {
                         System.out.println(nodoCompra.getNodeName() + ": " + datoContenidoCompra.getNodeValue());
 
                         NodeList datosTicket = nodoCompra.getChildNodes();
+
                         for (int k = 0; k < datosTicket.getLength(); k++) {
                             Node nodoTicket = datosTicket.item(k);
                             if (nodoTicket.getNodeType() == Node.ELEMENT_NODE) {
@@ -45,15 +47,18 @@ public class Lectura {
                                 System.out.println(nodoTicket.getNodeName() + ": " + datoContenidoTicket.getNodeValue());
 
                                 NodeList datosProducto = nodoTicket.getChildNodes();
+
                                 for (int l = 0; l < datosProducto.getLength(); l++) {
                                     Node nodoProducto = datosProducto.item(l);
                                     if (nodoProducto.getNodeType() == Node.ELEMENT_NODE) {
                                         Node datoContenidoProducto = nodoProducto.getFirstChild();
                                         System.out.println(nodoProducto.getNodeName() + ": " + datoContenidoProducto.getNodeValue());
+
                                     }
+
                                 }
                             }
-                            System.out.println();
+
                         }
                     }
                 }

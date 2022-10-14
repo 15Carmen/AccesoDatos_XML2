@@ -32,6 +32,16 @@ public class LecturaDOM {
                 System.out.println("Compra "+ i+1);
                 NodeList datosCompra=compra.getChildNodes();
 
+                for (int j = 0; j < datosCompra.getLength(); j++) {
+
+                    Node nodoCompra = datosCompra.item(j);
+                    if (nodoCompra.getNodeType() == Node.ATTRIBUTE_NODE){
+                        Node datoContenidoCompra = nodoCompra.getFirstChild();
+                        System.out.println(nodoCompra.getNodeName()+": "+ datoContenidoCompra);
+
+
+                    }
+                }
 
             }
 
