@@ -10,7 +10,7 @@ import java.io.File;
 import java.io.IOException;
 
 public class LecturaDOM {
-    public static void main(String[] args) throws SAXException, IOException, ParserConfigurationException {
+    public static void main(String[] args) {
 
         try {
             File file = new File("src/xml2/compras.xml");
@@ -30,15 +30,40 @@ public class LecturaDOM {
 
                 Node compra = comprasLista.item(i);
                 System.out.println("Compra "+ i+1);
+
                 NodeList datosCompra=compra.getChildNodes();
 
                 for (int j = 0; j < datosCompra.getLength(); j++) {
 
                     Node nodoCompra = datosCompra.item(j);
-                    if (nodoCompra.getNodeType() == Node.ATTRIBUTE_NODE){
-                        Node datoContenidoCompra = nodoCompra.getFirstChild();
-                        System.out.println(nodoCompra.getNodeName()+": "+ datoContenidoCompra);
 
+                    if (nodoCompra.getNodeType() == Node.ELEMENT_NODE){
+                        Node datoContenidoCompra = nodoCompra.getFirstChild();
+                        System.out.println(nodoCompra.getNodeName()+": "+ datoContenidoCompra.getNodeValue());
+
+                        NodeList datosTicket = nodoCompra.getChildNodes();
+
+                        for (int k = 0; k < datosTicket.getLength(); k++) {
+
+                            Node nodoTicket = datosTicket.item(k);
+
+                            if (nodoTicket.getNodeType() == Node.ELEMENT_NODE){
+                                Node datoContenidoTicket = nodoTicket.getFirstChild();
+                                System.out.println(nodoTicket.getNodeName() + "s: "+ datoContenidoTicket.getNodeValue());
+
+                                NodeList datosProducto = nodoTicket.getChildNodes();
+
+                                for (int l = 0; l < datosProducto.getLength(); l++) {
+
+                                    Node nodoProducto = datosProducto.item(l);
+
+                                    if (nodoProducto.getNodeType() == Node.ELEMENT_NODE){
+                                        Node datoContenidoProducto = nodoProducto.getFirstChild();
+                                        System.out.println(nodoProducto.getNodeName() + ": "+ datoContenidoProducto.getNodeValue());
+                                    }
+                                }
+                            }
+                        }
 
                     }
                 }
